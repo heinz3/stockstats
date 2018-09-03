@@ -384,7 +384,9 @@ class StockDataFrame(pd.DataFrame):
         tp_sma = df['middle_{}_sma'.format(n_days)]
         md = df['middle'].rolling(
             min_periods=1, center=False, window=n_days).apply(
-            lambda x: np.fabs(x - x.mean()).mean())
+            lambda x: np.fabs(x - x.mean()).mean(),
+            'raw=False' 
+        )
 
         df[column_name] = (tp - tp_sma) / (.015 * md)
 
